@@ -13,7 +13,7 @@ all: default
 default: clean dev_deps deps test lint build
 
 .venv:
-	if [ ! -e ".venv/bin/activate_this.py" ] ; then virtualenv --clear .venv ; fi
+	if [ ! -e ".venv/bin/activate_this.py" ] ; then virtualenv --clear -p python3 .venv ; fi
 
 clean: clean-build clean-pyc clean-test
 
@@ -32,7 +32,7 @@ clean-test:
 	rm -fr htmlcov/
 
 deps: .venv
-	. .venv/bin/activate && pip install -U -r requirements.txt -t ./src/libs
+	. .venv/bin/activate && pip install -U -r requirements.txt -t ./src/libs && touch __init__.py
 
 dev_deps: .venv
 	. .venv/bin/activate && pip install -U -r dev_requirements.txt
